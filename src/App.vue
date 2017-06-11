@@ -1,7 +1,43 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view></router-view>
+    <!-- header -->
+    <div class="header">
+      <div class="header-inner">
+        <div class="header-logo">
+          <a href="#" title="UK website design, North Wales">
+            <img src="./assets/images/navigation__logo.png" alt="Stuff & Nonsense. UK website design, North Wales">
+          </a>
+        </div>
+        <ul class="header-list">
+          <li class="link-design">
+            <a href="#">设计</a>
+          </li>
+          <li class="link-blog">
+            <a href="#">博客</a>
+          </li>
+          <li class="link-component">
+            <a href="#">插件</a>
+          </li>
+          <li class="link-algorithm">
+            <a href="#">算法</a>
+          </li>
+          <li class="link-about">
+            <a href="#">关于</a>
+          </li>
+          <li class="link-contact">
+            <a href="#">联系</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="container">
+      <router-view></router-view>
+    </div>
+    <div class="footer">
+      <footer role="site-info">
+        <h2>Let’s design something fabulous together</h2>
+      </footer>
+    </div>
   </div>
 </template>
 
@@ -11,13 +47,7 @@ export default {
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  /*@import 'assets/css/normalize.css';*/
+  @import 'assets/css/main.css';
 </style>
