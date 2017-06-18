@@ -7,50 +7,60 @@ html {
   display: block;
   font-size: 16px;
 }
+
 body {
   margin: 0;
   padding: 6px;
   min-height: 100vh;
   background-color: transparent;
-  font-family: "jubilat","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 1rem;
   color: #494a4a;
 }
+
+
 /*header*/
+
 .header {
   margin-bottom: 2vh;
-  background: rgba(149, 10, 44,0.95) url(../images/banner__credits@2x.png) repeat-x 0 100%;
-  background-size: 5px 12px; 
+  background: rgba(149, 10, 44, 0.95) url(../images/banner__credits@2x.png) repeat-x 0 100%;
+  background-size: 5px 12px;
 }
+
 .header .header-inner {
   margin: 0;
   padding: 0;
   height: 163px;
 }
+
 .header .header-inner .header-logo {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50px;
 }
+
 .header .header-inner .header-logo a {
   position: relative;
   display: block;
   width: 180px;
   transition: top 0.15s ease;
 }
+
 .header .header-inner .header-logo a img {
   max-width: 100%;
   border-width: 0;
   vertical-align: center;
 }
+
 .header .header-list {
   list-style: none;
   margin: 0;
   padding: 0;
   height: 100px;
 }
+
 .header .header-list li {
   display: flex;
   align-items: center;
@@ -59,17 +69,19 @@ body {
   height: 50px;
   margin-bottom: 0;
 }
+
 .header .header-list li:nth-child(odd) {
   background-color: rgba(186, 13, 55, 1);
 }
+
 .header .header-list li:nth-child(even) {
   background-color: rgba(186, 13, 55, 0.75);
 }
-.header .header-list li.link-design,
-.header .header-list li.link-blog,
-.header .header-list li.link-component {
+
+.header .header-list li.link-design, .header .header-list li.link-blog, .header .header-list li.link-component {
   border-bottom: 1px solid rgba(149, 10, 44, 0.5);
 }
+
 .header .header-list a {
   display: block;
   text-decoration: none;
@@ -79,7 +91,10 @@ body {
   border-bottom: 0;
   text-align: center;
 }
+
+
 /*footer*/
+
 [role="site-info"] {
   margin: 4vh 0 0;
   padding: 4vh 22px 2vh;
@@ -87,4 +102,33 @@ body {
   background-size: 6px 12px;
   color: #fff;
   text-align: center;
+}
+
+
+/*media queries*/
+
+@media screen and (min-width: 768px) {
+  .header .header-inner {
+    margin: 0 44px;
+    padding: 0;
+    height: 113px;
+  }
+  .header .header-inner .header-logo {
+    margin-left: 13%;
+    width: 30.5%;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100px;
+    margin-right: -100%;
+  }
+  .header .header-inner .header-logo a {
+    width: 240px;
+    left: -56px;
+  }
+  .header .header-list {
+    /*margin: -100px 0 0 46.5%;*/
+    margin-top: -100px;
+    margin-left: 46.5%;
+    width: 53.5%;
+  }
 }
