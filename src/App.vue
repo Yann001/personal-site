@@ -10,7 +10,8 @@
         </div>
         <ul class="header-list">
           <li class="link-design">
-            <a href="#">设计</a>
+            <router-link to="/design/recordYou">设计</router-link>
+            <!-- <a href="">设计</a> -->
           </li>
           <li class="link-blog">
             <a href="#">博客</a>
