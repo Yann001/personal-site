@@ -39,6 +39,7 @@ class Dal {
   }
   update1 () {
     this.Model.findById(this._model['_id'], (err, schema) => {
+      if (err) { } // reslove eslint error(handle-callback-error)
       for (var key in schema) {
         if (schema.hasOwnProperty(key)) {
           if (key !== '_id') {
@@ -51,6 +52,7 @@ class Dal {
   }
   update2 () {
     this.Model.findById(this._model['_id'], (err, schema) => {
+      if (err) { } // reslove eslint error(handle-callback-error)
       let _id = schema._id
       delete schema._id
       this.Model.update({_id: _id}, schema, (err) => console.info(err))
