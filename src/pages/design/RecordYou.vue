@@ -6,8 +6,8 @@
     <div class="body">
       <div class="had">
         <div class="thing" v-for="thing in things" :key="thing._id">
-          <div class="item date">{{ thing.date }}</div>
           <div class="item time">
+            <span>{{ thing.date }}&nbsp;&nbsp;</span>
             <span>{{ thing.startTime }}</span>
             <span>至{{ thing.endTime }}</span>
           </div>
@@ -66,7 +66,7 @@ export default {
     return {
       things: [{
         _id: '0348759',
-        date: '2017-8-14',
+        date: '2017-08-14',
         startTime: '16:00',
         endTime: '17:00',
         desc: 'coding',
@@ -85,7 +85,7 @@ export default {
       this.isAddNew = !this.isAddNew
     },
     save: function () {
-      
+      console.log('save')
     }
   }
 }
@@ -105,24 +105,44 @@ export default {
     width: 100%;
     .had {
       .thing {
+        position: relative;
+        padding-right: 44px;
+        margin-bottom: 20px;
         .item {
           margin-bottom: 5px;
         }
-        .date {
-          margin-left: 5px;
-          border-left: 2px solid #ff3e3e;
-        }
         .time {
           display: flex;
+          border-left: 2px solid #ff3e3e;
           padding-left: 10px;
         }
         .desc {
           display: flex;
           padding-left: 10px;
+          .content {
+            width: 80%;
+          }
+          .feel {
+            width: 20%;
+            text-align: center;
+          }
         }
         .operate {
+          position: absolute;
+          top: 0;
+          right: 0;
           display: flex;
+          flex-direction: column;
         }
+      }
+    }
+    .btn-box {
+      margin-bottom: 10px;
+    }
+    .new {
+      .form-group {
+        margin-bottom: 5px;
+        
       }
     }
   }
