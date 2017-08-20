@@ -212,7 +212,11 @@ export default {
               display: block;
               width: 24px;
               height: 24px;
-              background: url('../../assets/images/dustbin.png') no-repeat;
+              background: url('../../assets/images/edit.png') no-repeat;
+              background-size: 24px 24px;
+            }
+            .btn-edit:hover {
+              background: url('../../assets/images/edit_a.png') no-repeat;
               background-size: 24px 24px;
             }
             .btn-delete {
@@ -220,6 +224,10 @@ export default {
               width: 24px;
               height: 24px;
               background: url('../../assets/images/dustbin.png') no-repeat;
+              background-size: 24px 24px;
+            }
+            .btn-delete:hover {
+              background: url('../../assets/images/dustbin_a.png') no-repeat;
               background-size: 24px 24px;
             }
           }
