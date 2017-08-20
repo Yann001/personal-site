@@ -36,7 +36,7 @@
     </div>
     <div class="footer">
       <footer role="site-info">
-        <h2>Let’s design something fabulous together</h2>
+        <h2>Let's design something fabulous together</h2>
       </footer>
     </div>
   </div>
