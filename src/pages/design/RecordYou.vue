@@ -86,6 +86,7 @@
 </template>
 
 <script>
+import {addRecord, getRecord} from '../../service/record/store'
 export default {
   data () {
     return {
@@ -104,6 +105,8 @@ export default {
         desc: '内容较少',
         feel: '4'
       }],
+      // data: await getRecord(),
+      data: getRecord('00000'),
       isAddNew: false,
       date: '',
       startTime: '',
@@ -124,6 +127,18 @@ export default {
     },
     save: function () {
       console.log('save')
+      let data = {
+        userId: '00000',
+        startTime: this.startTime,
+        endTime: this.endTime,
+        done: this.desc,
+        feel: this.feel
+      }
+      // let res = await addRecord(data)
+      let res = addRecord(data)
+      if (res) {
+        console.log(res)
+      }
     }
   }
 }

@@ -6,7 +6,7 @@ import DoneModel from '../dal/doneModel.js'
 
 const router = express.Router()
 
-router.get('/api/add', (req, res) => {
+router.get('/api/record/add', (req, res) => {
   console.log('/api/add')
   let entity = new DoneModel({
     userId: '00000',
@@ -14,8 +14,8 @@ router.get('/api/add', (req, res) => {
     startTime: Date.now(),
     endTime: Date.now() + 1 * 3600 * 3600,
     done: 'coding',
-    remark: 'none',
     feel: 4,
+    remark: 'none',
     ext: 'none'
   })
   let promise = entity.save()
@@ -30,7 +30,7 @@ router.get('/api/add', (req, res) => {
     })
 })
 
-router.get('/api/get', (req, res) => {
+router.get('/api/record/get', (req, res) => {
   console.log('/api/get')
   DoneModel.find((err, doc) => {
     if (err) {
