@@ -12,7 +12,7 @@
             <span>至{{ thing.endTime }}</span>
           </div>
           <div class="item desc">
-            <div class="content">{{ thing.desc }}</div>
+            <div class="content">{{ thing.done }}</div>
             <div class="feel">
               <div class="feel-box">
                 <span class="feel-icon" :class="'l' + thing.feel"></span>
@@ -49,7 +49,7 @@
           </div>
           <div class="form-group">
             <label for="done">你做了啥</label>
-            <textarea class="done" v-model="desc" cols="3" rows="3"></textarea>
+            <textarea class="done" v-model="done" cols="3" rows="3"></textarea>
           </div>
           <div class="form-group">
             <label for="feel">感觉如何</label>
@@ -86,33 +86,33 @@
 </template>
 
 <script>
-import {addRecord, getRecord} from '../../service/record/store'
+import { addRecord, getRecord } from '../../service/record/store'
 export default {
   data () {
     return {
-      things: [{
-        _id: '0348759',
-        date: '2017-08-14',
-        startTime: '16:00',
-        endTime: '17:00',
-        desc: '很多内容很多内容很多内容很多内容',
-        feel: '2'
-      }, {
-        _id: '0348759',
-        date: '2017-08-14',
-        startTime: '16:00',
-        endTime: '17:00',
-        desc: '内容较少',
-        feel: '4'
-      }],
-      // data: await getRecord(),
-      data: getRecord('00000'),
+      things: [],
       isAddNew: false,
       date: '',
       startTime: '',
       endTime: '',
-      desc: '',
+      done: '',
       feel: 4
+    }
+  },
+  created () {
+    async function initData (vm) {
+      let self = vm
+      let res = await getRecord('00000')
+      self.things = formatThing(res.data)
+    }
+    initData(this)
+    const formatThing = (things) => {
+      let ret = []
+      things.forEach((item) => {
+        item.date = new Date(item.date).toDateString()
+        ret.push(item)
+      })
+      return ret
     }
   },
   methods: {
@@ -125,19 +125,25 @@ export default {
         this.feel = level
       }
     },
-    save: function () {
+    save: async function () {
       console.log('save')
       let data = {
         userId: '00000',
+        date: this.date,
         startTime: this.startTime,
         endTime: this.endTime,
-        done: this.desc,
+        done: this.done,
         feel: this.feel
       }
-      // let res = await addRecord(data)
-      let res = addRecord(data)
-      if (res) {
-        console.log(res)
+      let res = await addRecord(data)
+      if (res && res.code === 1) {
+        alert('添加成功')
+        this.things.push(res.data)
+        this.done = ''
+        this.toggleForm()
+      } else {
+        console.info(res)
+        alert('添加失败，请重试')
       }
     }
   }
@@ -193,23 +199,23 @@ export default {
                 height: 100%;
               }
               .feel-icon.l1 {
-                background: url('../../assets/images/feel1_a.png') no-repeat;              
+                background: url('../../assets/images/feel1_a.png') no-repeat;
                 background-size: 20px 20px;
               }
               .feel-icon.l2 {
-                background: url('../../assets/images/feel2_a.png') no-repeat;              
+                background: url('../../assets/images/feel2_a.png') no-repeat;
                 background-size: 20px 20px;
               }
               .feel-icon.l3 {
-                background: url('../../assets/images/feel3_a.png') no-repeat;              
+                background: url('../../assets/images/feel3_a.png') no-repeat;
                 background-size: 20px 20px;
               }
               .feel-icon.l4 {
-                background: url('../../assets/images/feel4_a.png') no-repeat;              
+                background: url('../../assets/images/feel4_a.png') no-repeat;
                 background-size: 20px 20px;
               }
               .feel-icon.l5 {
-                background: url('../../assets/images/feel5_a.png') no-repeat;              
+                background: url('../../assets/images/feel5_a.png') no-repeat;
                 background-size: 20px 20px;
               }
             }
@@ -293,7 +299,7 @@ export default {
               background-size: 30px 30px;
             }
             .l1.select {
-              background: url('../../assets/images/feel1_a.png') no-repeat;              
+              background: url('../../assets/images/feel1_a.png') no-repeat;
               background-size: 30px 30px;
             }
             .l2 {

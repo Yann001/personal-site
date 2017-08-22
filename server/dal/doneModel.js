@@ -4,6 +4,7 @@ import './connect'
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const DoneSchema = new Schema({
+  _id: Number,
   userId: String,
   date: Date,
   startTime: {

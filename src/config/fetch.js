@@ -16,12 +16,12 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
 
   if (window.fetch && method === 'fetch') {
     let reqConfig = {
-      credentials: 'include',
+      // credentials: 'include',
       method: type,
-      headers: {
-        'Accept': 'application/json',
-        'Content-type': 'application/json'
-      },
+      // headers: {
+      //   'Accept': 'application/json',
+      //   'Content-type': 'application/json'
+      // },
       mode: 'cors',
       cache: 'force-cache'
     }
