@@ -1,20 +1,32 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Hello from '@/components/Hello'
-import RecordYou from '@/pages/design/RecordYou'
+import Vue from 'vue';
+import Router from 'vue-router';
 
-Vue.use(Router)
+const hello = r => require.ensure([], () => r(require('../components/hello')), 'hello');
+const recordyou = r => require.ensure([], () => r(require('../pages/design/recordyou')), 'recordyou');
+const blog = r => require.ensure([], () => r(require('../pages/blog/blog')), 'blog');
+const read = r => require.ensure([], () => r(require('../pages/blog/read')), 'read');
+const edit = r => require.ensure([], () => r(require('../pages/blog/edit')), 'edit');
+
+Vue.use(Router);
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Hello',
-      component: Hello
-    },
-    {
-      path: '/design/recordYou/',
-      component: RecordYou
-    }
-  ]
-})
+  routes: [{
+    path: '/',
+    component: hello
+  }, {
+    path: '/home',
+    component: hello
+  }, {
+    path: '/design/recordyou/',
+    component: recordyou
+  }, {
+    path: '/blog/edit',
+    component: edit
+  }, {
+    path: '/blog/index',
+    component: blog
+  }, {
+    path: '/blog/read/:id',
+    component: read
+  }]
+});

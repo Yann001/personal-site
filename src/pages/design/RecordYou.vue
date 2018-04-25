@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { addRecord, getRecord } from '../../service/record/store'
+import { addRecord, getRecord } from '../../service/record/store';
 export default {
   data () {
     return {
@@ -97,36 +97,36 @@ export default {
       endTime: '',
       done: '',
       feel: 4
-    }
+    };
   },
   created () {
     async function initData (vm) {
-      let self = vm
-      let res = await getRecord('00000')
-      self.things = formatThing(res.data)
+      let self = vm;
+      let res = await getRecord('00000');
+      self.things = formatThing(res.data);
     }
-    initData(this)
+    initData(this);
     const formatThing = (things) => {
-      let ret = []
+      let ret = [];
       things.forEach((item) => {
-        item.date = new Date(item.date).toDateString()
-        ret.push(item)
-      })
-      return ret
-    }
+        item.date = new Date(item.date).toDateString();
+        ret.push(item);
+      });
+      return ret;
+    };
   },
   methods: {
     toggleForm: function () {
-      this.isAddNew = !this.isAddNew
+      this.isAddNew = !this.isAddNew;
     },
     changeFeel: function (e) {
-      let level = e.target.dataset.level
+      let level = e.target.dataset.level;
       if (level) {
-        this.feel = level
+        this.feel = level;
       }
     },
     save: async function () {
-      console.log('save')
+      console.log('save');
       let data = {
         userId: '00000',
         date: this.date,
@@ -134,20 +134,20 @@ export default {
         endTime: this.endTime,
         done: this.done,
         feel: this.feel
-      }
-      let res = await addRecord(data)
+      };
+      let res = await addRecord(data);
       if (res && res.code === 1) {
-        alert('添加成功')
-        this.things.push(res.data)
-        this.done = ''
-        this.toggleForm()
+        alert('添加成功');
+        this.things.push(res.data);
+        this.done = '';
+        this.toggleForm();
       } else {
-        console.info(res)
-        alert('添加失败，请重试')
+        console.info(res);
+        alert('添加失败，请重试');
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
