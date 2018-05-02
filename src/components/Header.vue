@@ -33,24 +33,24 @@ export default {
         className: 'design'
       }, {
         id: 2,
-        name: '算法',
-        router: '/design',
-        className: 'design'
+        name: '游戏',
+        router: '/game/index',
+        className: 'game'
       }, {
         id: 3,
         name: '摄影',
-        router: '/photograph',
+        router: '/photograph/index',
         className: 'photograph'
       }, {
         id: 4,
+        name: '代购',
+        router: '/purchase/index',
+        className: 'purchase'
+      }, {
+        id: 5,
         name: '关于',
         router: '/about',
         className: 'about'
-      }, {
-        id: 5,
-        name: '联系',
-        router: '/contact',
-        className: 'contact'
       }]
     };
   }
@@ -105,7 +105,7 @@ export default {
       }
       &.blog,
       &.design,
-      &.algorithm {
+      &.game {
         border-bottom: 1px solid rgba(149, 10, 44, 0.5);
       }
       .link {

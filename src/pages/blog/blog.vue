@@ -6,18 +6,17 @@
       </h1>
       <time class="time"><i class="fa fa-calendar"></i> {{ blog.updateTime }}</time>
       <span class="read"><i class="fa fa-eye"></i> {{ blog.readCount }}</span>
-      <p class="abstract">{{ blog.abstract }}</p>
-      <ul class="tag-list">
-        <li class="name"><i class="fa fa-tags"></i></li>
-        <li class="tag" v-for="tag in blog.tags" :key="tag">
-          <router-link class="link" :to="'/blog/tag/' + tag">{{ tag }}</router-link>
-        </li>
-      </ul>
+      <p class="abstract">
+        {{ blog.abstract }}
+        <router-link class="read-all" :to="'/blog/read/' + blog.id">阅读全文...</router-link>
+      </p>
+      <tag :tags="blog.tags"></tag>
     </article>
   </div>
 </template>
 
 <script>
+import Tag from '@/components/Tag';
 export default {
   data () {
     return {
@@ -115,6 +114,9 @@ export default {
         readCount: 233
       }]
     };
+  },
+  components: {
+    Tag
   }
 };
 </script>
@@ -161,76 +163,21 @@ $aVisitedColor: #61066e;
       display: inline-block;
       margin-left: 20px;
     }
-    .tag-list {
-      list-style: none;
-      padding: 0;
-      .name {
+    .abstract {
+      .read-all {
+        text-decoration: none;
         display: inline-block;
-        margin-right: 10px;
-      }
-      .tag {
-        display: inline-block;
-        height: 0.22rem;
-        margin: 2px 15px;
-        padding: 0.05rem 0.1rem;
-        border-radius: 1px 2px 2px 1px;
-        position: relative;
-        cursor: pointer;
-        &::before {
-          content: ' ';
-          width: 0;
-          height: 0;
-          position: absolute;
-          top: 0;
-          left: -32px;
-          border-width: 16px;
-          border-style: solid;
-          border-color: transparent;
+        padding: 0 5px;
+        border-radius: 2px;
+        color: $hbg2;
+        background-color: #ccc;
+        &:hover,
+        &:active {
+          color: $hbg2;
+          background-color: #888;
         }
-        &::after {
-            content: '';
-            width: 4px;
-            height: 4px;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: 0 0 0 1px rgba(0,0,0,.3);
-            position: absolute;
-            top: 14px;
-            left: -5px;
-        }
-        &:nth-child(n+1) {
-          background-color: #9c200a;
-          &::before {
-            border-right-color: #9c200a;
-          }
-        }
-        &:nth-child(n+2) {
-          background-color: #037a5d;
-          &::before {
-            border-right-color: #037a5d;
-          }
-        }
-        &:nth-child(n+3) {
-          background-color: #96086b;
-          &::before {
-            border-right-color: #96086b;
-          }
-        }
-        &:nth-child(n+4) {
-          background-color: #5f6905;
-          &::before {
-            border-right-color: #5f6905;
-          }
-        }
-        &:nth-child(n+5) {
-          background-color: #1504ad;
-          &::before {
-            border-right-color: #1504ad;
-          }
-        }
-        .link {
-          text-decoration: none;
-          color: #fff;
+        &:visited {
+          color: $aVisitedColor;
         }
       }
     }

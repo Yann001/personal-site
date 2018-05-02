@@ -1,13 +1,18 @@
 <template>
-  <article class="post">
+  <article class="post" id="article">
     <h1 class="title">{{ blog.title }}</h1>
     <time class="time"><i class="fa fa-calendar"></i> {{ blog.updateTime }}</time>
     <span class="read"><i class="fa fa-eye"></i> {{ blog.readCount }}</span>
     <article class="content" v-html="blog.htmlCode"></article>
+    <tag :tags="blog.tags"></tag>
+    <go-top></go-top>
   </article>
 </template>
 
 <script>
+import Tag from '@/components/Tag';
+import GoTop from '@/components/GoTop';
+const AnchorJS = require('anchor-js');
 export default {
   data () {
     return {
@@ -26,6 +31,14 @@ export default {
         readCount: 233
       }
     };
+  },
+  components: {
+    Tag,
+    GoTop
+  },
+  mounted () {
+    const anchors = new AnchorJS();
+    anchors.add('h1,h2,h3,h4');
   }
 };
 </script>

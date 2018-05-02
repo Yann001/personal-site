@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 const hello = r => require.ensure([], () => r(require('../components/hello')), 'hello');
+const home = r => require.ensure([], () => r(require('../pages/home/home')), 'home');
 const recordyou = r => require.ensure([], () => r(require('../pages/design/recordyou')), 'recordyou');
 const blog = r => require.ensure([], () => r(require('../pages/blog/blog')), 'blog');
 const read = r => require.ensure([], () => r(require('../pages/blog/read')), 'read');
@@ -15,7 +16,7 @@ export default new Router({
     component: hello
   }, {
     path: '/home',
-    component: hello
+    component: home
   }, {
     path: '/design/recordyou/',
     component: recordyou
