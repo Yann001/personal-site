@@ -86,7 +86,7 @@
 </template>
 
 <script>
-import { addRecord, getRecord } from '../../service/record/store';
+import { addRecord, getRecord } from '../../service/record/getData';
 export default {
   data () {
     return {

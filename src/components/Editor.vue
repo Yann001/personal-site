@@ -42,7 +42,7 @@
               </div>
               <h4>标签</h4>
               <div class="tag-box">
-                <input v-model="tag" type="text" class="input-tag" placeholder="输入标签（可不填）">
+                <input v-model="tag" type="text" class="input-tag" placeholder="多个标签请使用空格或英文逗号分隔">
               </div>
               <div class="btn-box">
                 <button @click="publish" class="btn-sure-publish">确定并发布</button>
