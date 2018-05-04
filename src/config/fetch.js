@@ -1,12 +1,21 @@
 import { baseUrl } from './env';
+
+/**
+ * excute http request
+ * @param {String} url the api address
+ * @param {Object} [data] sended data, the default is '{}'
+ * @param {String} [type] the request type, the default is 'GET'
+ * @param {method} [method] the request method, the default is 'fetch'
+ * @return {Promise}
+ */
 export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
   type = type.toUpperCase();
   url = baseUrl + url;
 
   if (type === 'GET') {
-    let dataStr = '';
+    let dataStr = ''; // 数据拼接字符串
     Object.keys(data).forEach(key => {
-      dataStr += key + '=' + data[key] + '&';
+      dataStr += `${key}=${data[key]}&`;
     });
     if (dataStr !== '') {
       dataStr = dataStr.substr(0, dataStr.lastIndexOf('&'));
@@ -15,25 +24,25 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
   }
 
   if (window.fetch && method === 'fetch') {
-    let reqConfig = {
-      // credentials: 'include',
+    let requestConfig = {
+      credentials: 'include',
       method: type,
-      // headers: {
-      //   'Accept': 'application/json',
-      //   'Content-type': 'application/json'
-      // },
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
       mode: 'cors',
-      cache: 'force-cache'
+      cache: 'default'
     };
 
     if (type === 'POST') {
-      Object.defineProperty(reqConfig, 'body', {
+      Object.defineProperty(requestConfig, 'body', {
         value: JSON.stringify(data)
       });
     }
 
     try {
-      const res = await fetch(url, reqConfig);
+      const res = await fetch(url, requestConfig);
       const resJson = await res.json();
       return resJson;
     } catch (error) {
@@ -41,11 +50,11 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
     }
   } else {
     return new Promise((resolve, reject) => {
-      let reqObj;
+      let requestObj;
       if (window.XMLHttpRequest) {
-        reqObj = new XMLHttpRequest();
+        requestObj = new XMLHttpRequest();
       } else {
-        reqObj = new window.ActiveXObject('Microsoft.XMLHTTP');
+        requestObj = new window.ActiveXObject('Microsoft.XMLHTTP');
       }
 
       let sendData = '';
@@ -53,20 +62,20 @@ export default async (url = '', data = {}, type = 'GET', method = 'fetch') => {
         sendData = JSON.stringify(data);
       }
 
-      reqObj.open(type, url, true);
-      reqObj.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-      reqObj.send(sendData);
+      requestObj.open(type, url, true);
+      requestObj.setRequestHeader('Content-type', 'application/json');
+      requestObj.send(sendData);
 
-      reqObj.onreadystatechange = () => {
-        if (reqObj.readState === 4) {
-          if (reqObj.status === 200) {
-            let res = reqObj.response;
-            if (typeof res !== 'object') {
-              res = JSON.parse(res);
+      requestObj.onreadystatechange = () => {
+        if (requestObj.readyState === 4) {
+          if (requestObj.status === 200) {
+            let obj = requestObj.response;
+            if (typeof obj !== 'object') {
+              obj = JSON.parse(obj);
             }
-            resolve(res);
+            resolve(obj);
           } else {
-            reject(reqObj);
+            reject(requestObj);
           }
         }
       };

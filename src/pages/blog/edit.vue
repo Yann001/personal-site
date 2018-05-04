@@ -59,15 +59,14 @@
 <script>
 import { mavonEditor } from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
-import { getBlogTypes } from '@/service/blog/getData';
-// import { Storage } from '@/store/storage';
+import { getBlogTypes, getBlog, saveBlog } from '@/service/blog/getData';
+import { getAbstract } from '@/util/util';
 // import { userInfoKey } from '@/store/storageConfig';
 
 export default {
   data () {
     return {
       userInfo: {},
-      blog: {},
       blogTypes: [],
       blogId: -1,                      // 文章id
       title: '',                          // 文章标题
@@ -117,50 +116,84 @@ export default {
     mavonEditor
   },
   async created () {
-    let res = await getBlogTypes();
-    if (res.result && res.result.code === 200) {
-      this.blogTypes = res.data;
+    let blogId = this.$route.query.id;
+    if (blogId !== undefined) {
+      let res1 = await getBlog({id: blogId});
+      if (res1.result && res1.result.code === 200) {
+        this.blogId = res1.data.id;
+        this.title = res1.data.title;
+        this.typeId = res1.data.type.id;
+        this.tag = res1.data.tag.join(' ');
+        this.mdCode = res1.data.mdCode;
+      }
+    }
+    let res2 = await getBlogTypes();
+    if (res2.result && res2.result.code === 200) {
+      this.blogTypes = res2.data;
     }
   },
   methods: {
     setblogType (id) {
       this.typeId = id;
     },
-    saveDraft () {
+    async saveDraft () {
       let meditor = this.$refs.meditor;
       let draft = {
         id: this.blogId,
+        user: '5aeab05a4dc8b42704cb6960',
         title: this.title,
-        abstract: meditor.d_render.substr(0, 200),
-        typeId: this.typeId,
-        tag: this.tag,
+        // abstract: meditor.d_render.substr(0, 200),
+        abstract: getAbstract(meditor.d_render),
         mdCode: meditor.d_value,
         htmlCode: meditor.d_render,
+        type: {
+          id: this.typeId,
+          name: this.typeId === -1 ? '' : this.blogTypes[this.typeId].name
+        },
+        tag: this.tag.trim().split(' '),
         status: 0
       };
-      this.$emit('saveDraft', draft);
+      let res = await saveBlog(draft);
+      if (res.result && res.result.code === 200) {
+        this.blogId = res.data.id;
+        alert('save draft success');
+      } else {
+        console.log(res);
+        alert('save draft fail');
+      }
     },
-    publish () {
+    async publish () {
       if (!this.title) {
         alert('文章标题不能为空哟^_^');
         return;
       }
-      if (this.typeId > 5) {
+      if (this.typeId === -1) {
         alert('请选择文章分类');
         return;
       }
       let meditor = this.$refs.meditor;
       let blog = {
         id: this.blogId,
+        user: '5aeab05a4dc8b42704cb6960',
         title: this.title,
-        abstract: meditor.d_render.substr(0, 200),
-        typeId: this.typeId,
-        tag: this.tag,
+        // abstract: meditor.d_render.substr(0, 200),
+        abstract: getAbstract(meditor.d_render),
         mdCode: meditor.d_value,
         htmlCode: meditor.d_render,
+        type: {
+          id: this.typeId,
+          name: this.blogTypes[this.typeId].name
+        },
+        tag: this.tag.trim().split(' '),
         status: 1
       };
-      this.$emit('publish', blog);
+      let res = await saveBlog(blog);
+      if (res.result && res.result.code === 200) {
+        this.$router.push(`/blog/read/${res.data.id}`);
+      } else {
+        console.log(res);
+        alert('save blog fail');
+      }
     }
   }
 };
